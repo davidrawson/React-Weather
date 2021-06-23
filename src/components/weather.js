@@ -1,29 +1,47 @@
 import React from "react";
-// import "./styles.css";
-import { Card } from "semantic-ui-react";
+import "./styles.css";
+import { Button } from "semantic-ui-react";
 import moment from "moment";
-// import { mockComponent } from "react-dom/cjs/react-dom-test-utils.production.min";
 
-const CardExampleCard = ({ weatherData }) => (
-  <Card>
-    <Card.Content>
-      <Card.Header className="header">City: {weatherData.name}</Card.Header>
+const WeatherCard = ({ weatherData }) => (
+  <div className="main">
+    <div className="top">
+      <p className="header">{weatherData.name}</p>
+      <Button
+        className="button"
+        inverted
+        color="orange"
+        circular
+        icon="refresh"
+        onClick={refresh}
+      />
+    </div>
+    <p className="date">
+      Date: {moment().format("dddd")}, <span>{moment().format("LL")}</span>
+    </p>
+    <div className="flex sunrise-sunset">
       <p>
         Sunrise:{" "}
-        {new Date(weatherData.sys.sunrise * 1000).toLocaleDateString("en-GB")}
+        {new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString("en-GB")}
       </p>
       <p>
         Sunset:{" "}
-        {new Date(weatherData.sys.sunset * 1000).toLocaleDateString("en-GB")}
+        {new Date(weatherData.sys.sunset * 1000).toLocaleTimeString("en-GB")}
       </p>
+    </div>
+    <div className="flex list-white">
       <p>Temperature: {weatherData.main.temp} &deg;C</p>
       <p>Description: {weatherData.weather[0].description}</p>
+    </div>
+    <div className="flex list-white">
       <p>Wind speed: {weatherData.wind.speed}</p>
       <p>Wind direction: {weatherData.wind.deg} &deg;</p>
-      <p>Day: {moment().format("dddd")}</p>
-      <p>Date: {moment().format("LL")}</p>
-    </Card.Content>
-  </Card>
+    </div>
+  </div>
 );
 
-export default CardExampleCard;
+const refresh = () => {
+  window.location.reload();
+};
+
+export default WeatherCard;

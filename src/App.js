@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import Weather from "./components/weather";
+import { Dimmer, Loader } from "semantic-ui-react";
 
 export default function App() {
   const [lat, setLat] = useState(["55.96233197399791"]);
@@ -35,7 +36,11 @@ export default function App() {
       {typeof data.main != "undefined" ? (
         <Weather weatherData={data} />
       ) : (
-        <div></div>
+        <div>
+          <Dimmer active>
+            <Loader>Loading...</Loader>
+          </Dimmer>
+        </div>
       )}
     </div>
   );
